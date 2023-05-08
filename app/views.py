@@ -18,6 +18,8 @@ User = settings.AUTH_USER_MODEL
 # ########################################################
 # News & Events
 # ########################################################
+
+
 @login_required
 def home_view(request):
     items = NewsAndEvents.objects.all().order_by('-updated_date')
@@ -82,6 +84,8 @@ def delete_post(request, pk):
 # ########################################################
 # Session
 # ########################################################
+
+
 @login_required
 @lecturer_required
 def session_list_view(request):
@@ -97,14 +101,16 @@ def session_add_view(request):
     if request.method == 'POST':
         form = SessionForm(request.POST)
         if form.is_valid():
-            data = form.data.get('is_current_session')  # returns string of 'True' if the user selected Yes
+            # returns string of 'True' if the user selected Yes
+            data = form.data.get('is_current_session')
             print(data)
             if data == 'true':
                 sessions = Session.objects.all()
                 if sessions:
                     for session in sessions:
                         if session.is_current_session == True:
-                            unset = Session.objects.get(is_current_session=True)
+                            unset = Session.objects.get(
+                                is_current_session=True)
                             unset.is_current_session = False
                             unset.save()
                     form.save()
@@ -135,7 +141,7 @@ def session_update_view(request, pk):
                         unset = Session.objects.get(is_current_session=True)
                         unset.is_current_session = False
                         unset.save()
-            
+
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Session updated successfully. ')
@@ -183,14 +189,16 @@ def semester_add_view(request):
     if request.method == 'POST':
         form = SemesterForm(request.POST)
         if form.is_valid():
-            data = form.data.get('is_current_semester')  # returns string of 'True' if the user selected Yes
+            # returns string of 'True' if the user selected Yes
+            data = form.data.get('is_current_semester')
             if data == 'True':
                 semester = form.data.get('semester')
                 ss = form.data.get('session')
                 session = Session.objects.get(pk=ss)
                 try:
                     if Semester.objects.get(semester=semester, session=ss):
-                        messages.error(request, semester + " semester in " + session.session + " session already exist")
+                        messages.error(
+                            request, semester + " semester in " + session.session + " session already exist")
                         return redirect('add_semester')
                 except:
                     semesters = Semester.objects.all()
@@ -198,12 +206,14 @@ def semester_add_view(request):
                     if semesters:
                         for semester in semesters:
                             if semester.is_current_semester == True:
-                                unset_semester = Semester.objects.get(is_current_semester=True)
+                                unset_semester = Semester.objects.get(
+                                    is_current_semester=True)
                                 unset_semester.is_current_semester = False
                                 unset_semester.save()
                         for session in sessions:
                             if session.is_current_session == True:
-                                unset_session = Session.objects.get(is_current_session=True)
+                                unset_session = Session.objects.get(
+                                    is_current_session=True)
                                 unset_session.is_current_session = False
                                 unset_session.save()
 
@@ -228,7 +238,8 @@ def semester_add_view(request):
 def semester_update_view(request, pk):
     semester = Semester.objects.get(pk=pk)
     if request.method == 'POST':
-        if request.POST.get('is_current_semester') == 'True': # returns string of 'True' if the user selected yes for 'is current semester'
+        # returns string of 'True' if the user selected yes for 'is current semester'
+        if request.POST.get('is_current_semester') == 'True':
             unset_semester = Semester.objects.get(is_current_semester=True)
             unset_semester.is_current_semester = False
             unset_semester.save()

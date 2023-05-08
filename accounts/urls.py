@@ -1,16 +1,16 @@
 from django.urls import path, include
 from django.contrib.auth.views import (
-    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, 
+    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView,
     PasswordResetCompleteView, LoginView, LogoutView
-    )
+)
 from .views import (
-        profile, profile_single, admin_panel, 
-        profile_update, change_password, 
-        LecturerListView, StudentListView, 
-        staff_add_view, edit_staff, 
-        delete_staff, student_add_view, 
-        edit_student, delete_student, ParentAdd, validate_username, register
-    )
+    profile, profile_single, admin_panel,
+    profile_update, change_password,
+    LecturerListView, StudentListView,
+    staff_add_view, edit_staff,
+    delete_staff, student_add_view,
+    edit_student, delete_student, ParentAdd, validate_username, register
+)
 from .forms import EmailValidationOnForgotPassword
 
 

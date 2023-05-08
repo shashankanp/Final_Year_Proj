@@ -34,6 +34,10 @@ class StaffAddForm(UserCreationForm):
         max_length=30, widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control', }),
         label="Email", )
 
+    religion = forms.CharField(
+        max_length=30, widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control', }),
+        label="Religion", )
+
     password1 = forms.CharField(
         max_length=30, widget=forms.TextInput(attrs={'type': 'password', 'class': 'form-control', }),
         label="Password", )
@@ -54,6 +58,7 @@ class StaffAddForm(UserCreationForm):
         user.phone = self.cleaned_data.get('phone')
         user.address = self.cleaned_data.get('address')
         user.email = self.cleaned_data.get('email')
+        user.religion = self.cleaned_data.get('religion')
         if commit:
             user.save()
         return user
@@ -114,6 +119,16 @@ class StudentAddForm(UserCreationForm):
         ),
         label="Last name",
     )
+    religion = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Religion",
+    )
 
     level = forms.CharField(
         widget=forms.Select(
@@ -126,7 +141,8 @@ class StudentAddForm(UserCreationForm):
 
     department = forms.ModelChoiceField(
         queryset=Program.objects.all(),
-        widget=forms.Select(attrs={'class': 'browser-default custom-select form-control'}),
+        widget=forms.Select(
+            attrs={'class': 'browser-default custom-select form-control'}),
         label="Department",
     )
 
@@ -165,6 +181,7 @@ class StudentAddForm(UserCreationForm):
         user.address = self.cleaned_data.get('address')
         user.phone = self.cleaned_data.get('phone')
         user.email = self.cleaned_data.get('email')
+        user.religion = self.cleaned_data.get('religion')
         user.save()
         student = Student.objects.create(
             student=user,
@@ -177,28 +194,39 @@ class StudentAddForm(UserCreationForm):
 
 class ProfileUpdateForm(UserChangeForm):
     email = forms.EmailField(
-        widget=forms.TextInput(attrs={'type': 'email', 'class': 'form-control', }),
+        widget=forms.TextInput(
+            attrs={'type': 'email', 'class': 'form-control', }),
         label="Email Address", )
 
     first_name = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control', }),
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
         label="First Name", )
 
     last_name = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control', }),
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
         label="Last Name", )
 
     phone = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control', }),
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
         label="Phone No.", )
 
     address = forms.CharField(
-        widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control', }),
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
         label="Address / city", )
+
+    religion = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Religion", )
 
     class Meta:
         model = User
-        fields = ['email', 'phone', 'address', 'picture', 'first_name', 'last_name']
+        fields = ['email', 'phone', 'address',
+                  'picture', 'first_name', 'last_name', 'religion']
 
 
 class EmailValidationOnForgotPassword(PasswordResetForm):
@@ -277,14 +305,15 @@ class ParentAddForm(UserCreationForm):
 
     student = forms.ModelChoiceField(
         queryset=Student.objects.all(),
-        widget=forms.Select(attrs={'class': 'browser-default custom-select form-control'}),
+        widget=forms.Select(
+            attrs={'class': 'browser-default custom-select form-control'}),
         label="Student",
     )
 
     relation_ship = forms.CharField(
         widget=forms.Select(
             choices=RELATION_SHIP,
-            attrs={'class': 'browser-default custom-select form-control',}
+            attrs={'class': 'browser-default custom-select form-control', }
         ),
     )
 
@@ -313,6 +342,7 @@ class ParentAddForm(UserCreationForm):
         user.address = self.cleaned_data.get('address')
         user.phone = self.cleaned_data.get('phone')
         user.email = self.cleaned_data.get('email')
+        user.religion = self.cleaned_data.get('religion')
         user.save()
         parent = Parent.objects.create(
             user=user,
