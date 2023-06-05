@@ -20,19 +20,39 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='first_name',
-            field=models.CharField(blank=True, max_length=30, verbose_name='first name'),
+            field=models.CharField(
+                blank=True, max_length=30, verbose_name='first name'),
         ),
         migrations.CreateModel(
             name='Family',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('first_name', models.CharField(max_length=120)),
                 ('last_name', models.CharField(max_length=120)),
                 ('phone', models.CharField(blank=True, max_length=60, null=True)),
                 ('address', models.CharField(blank=True, max_length=60, null=True)),
-                ('email', models.EmailField(blank=True, max_length=254, null=True)),
-                ('relation_ship', models.TextField(blank=True, choices=[('Father', 'Father'), ('Mother', 'Mother'), ('Brother', 'Brother'), ('Sister', 'Sister'), ('Grand mother', 'Grand mother'), ('Grand father', 'Grand father'), ('Other', 'Other')])),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('religion', models.CharField(blank=True, max_length=60, null=True)),
+                ('date_of_birth', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('blood_group', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('admission_number', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('admission_date', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('nationality', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('father_name', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('father_occupation', models.CharField(
+                    blank=True, max_length=60, null=True)),
+                ('father_phone_number', models.EmailField(
+                    blank=True, max_length=254, null=True)),
+                ('relation_ship', models.TextField(blank=True, choices=[('Father', 'Father'), ('Mother', 'Mother'), ('Brother', 'Brother'), (
+                    'Sister', 'Sister'), ('Grand mother', 'Grand mother'), ('Grand father', 'Grand father'), ('Other', 'Other')])),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

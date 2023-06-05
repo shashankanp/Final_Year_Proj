@@ -2,6 +2,33 @@ from django import forms
 from django.db import transaction
 
 from .models import NewsAndEvents, Session, Semester, SEMESTER
+from django.apps import AppConfig
+# from web3 import Web3
+
+# ganache_url = "http://127.0.0.1:7545"
+# web3 = Web3(Web3.HTTPProvider(ganache_url))
+
+# account_1 = "0x0fA698262632eCceeA0c65C10BA28CF0A5f5d4Dc"
+# account_2 = "0x956310A9DE356ac85C0E0748BE44AD49bFe909D4"
+
+# private_key = "0xbf543a548fd0bcbcbae59e1213a128515164cd86d5719b6e7a5c8e56d4a08b56"
+
+# nonce = web3.eth.get_transaction_count(account_1)
+
+# tx = {
+#     'nonce': nonce,
+#     'to': account_2,
+#     'value': web3.to_wei(1, 'ether'),
+#     'gas': 2000000,
+#     'gasPrice': web3.to_wei('50', 'gwei'),
+# }
+
+# signed_tx = web3.eth.account.sign_transaction(tx, private_key)
+
+# tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+
+# print(web3.to_hex(tx_hash))
+# print("Transaction succesfull!")
 
 
 # news and events
@@ -71,4 +98,5 @@ class SemesterForm(forms.ModelForm):
 
     class Meta:
         model = Semester
-        fields = ['semester', 'is_current_semester', 'session', 'next_semester_begins']
+        fields = ['semester', 'is_current_semester',
+                  'session', 'next_semester_begins']

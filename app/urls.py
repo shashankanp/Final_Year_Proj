@@ -9,7 +9,6 @@ from .views import (
 
 
 urlpatterns = [
-    # Accounts url
     path('', home_view, name='home'),
     path('add_item/', post_add, name='add_item'),
     path('item/<int:pk>/edit/', edit_post, name='edit_post'),
@@ -27,4 +26,5 @@ urlpatterns = [
          semester_delete_view, name="delete_semester"),
 
     path('dashboard/', dashboard_view, name="dashboard"),
+
 ]

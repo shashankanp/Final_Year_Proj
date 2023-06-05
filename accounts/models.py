@@ -29,7 +29,7 @@ GRAND_MOTHER = "Grand mother"
 GRAND_FATHER = "Grand father"
 OTHER = "Other"
 
-RELATION_SHIP  = (
+RELATION_SHIP = (
     (FATHER, "Father"),
     (MOTHER, "Mother"),
     (BROTHER, "Brother"),
@@ -43,9 +43,9 @@ RELATION_SHIP  = (
 #     def search(self, query=None):
 #         qs = self.get_queryset()
 #         if query is not None:
-#             or_lookup = (Q(username__icontains=query) | 
-#                          Q(first_name__icontains=query)| 
-#                          Q(last_name__icontains=query)| 
+#             or_lookup = (Q(username__icontains=query) |
+#                          Q(first_name__icontains=query)|
+#                          Q(last_name__icontains=query)|
 #                          Q(email__icontains=query)
 #                         )
 #             qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
@@ -59,8 +59,20 @@ class User(AbstractUser):
     is_dep_head = models.BooleanField(default=False)
     phone = models.CharField(max_length=60, blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
-    picture = models.ImageField(upload_to='profile_pictures/%y/%m/%d/', default='default.png', null=True)
+    picture = models.ImageField(
+        upload_to='profile_pictures/%y/%m/%d/', default='default.png', null=True)
     email = models.EmailField(blank=True, null=True)
+    # religion = models.CharField(max_length=60, blank=True, null=True)
+    # gender = models.CharField(max_length=60, blank=True, null=True)
+    # date_of_birth = models.CharField(max_length=60, blank=True, null=True)
+    # blood_group = models.CharField(max_length=60, blank=True, null=True)
+    # admission_number = models.CharField(max_length=60, blank=True, null=True)
+    # admission_date = models.CharField(max_length=60, blank=True, null=True)
+    # nationality = models.CharField(max_length=60, blank=True, null=True)
+    # father_name = models.CharField(max_length=60, blank=True, null=True)
+    # father_occupation = models.CharField(max_length=60, blank=True, null=True)
+    # father_phone_number = models.CharField(
+    #     max_length=60, blank=True, null=True)
 
     username_validator = ASCIIUsernameValidator()
 
@@ -118,10 +130,11 @@ class StudentManager(models.Manager):
     def search(self, query=None):
         qs = self.get_queryset()
         if query is not None:
-            or_lookup = (Q(level__icontains=query) | 
+            or_lookup = (Q(level__icontains=query) |
                          Q(department__icontains=query)
-                        )
-            qs = qs.filter(or_lookup).distinct() # distinct() is often necessary with Q lookups
+                         )
+            # distinct() is often necessary with Q lookups
+            qs = qs.filter(or_lookup).distinct()
         return qs
 
 
@@ -129,7 +142,8 @@ class Student(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE)
     # id_number = models.CharField(max_length=20, unique=True, blank=True)
     level = models.CharField(max_length=25, choices=LEVEL, null=True)
-    department = models.ForeignKey(Program, on_delete=models.CASCADE, null=True)
+    department = models.ForeignKey(
+        Program, on_delete=models.CASCADE, null=True)
 
     objects = StudentManager()
 
@@ -150,7 +164,8 @@ class Parent(models.Model):
     only view their connected students information
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    student = models.OneToOneField(Student, null=True, on_delete=models.SET_NULL)
+    student = models.OneToOneField(
+        Student, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=60, blank=True, null=True)
@@ -165,7 +180,8 @@ class Parent(models.Model):
 
 class DepartmentHead(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    department = models.ForeignKey(Program, on_delete=models.CASCADE, null=True)
+    department = models.ForeignKey(
+        Program, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "{}".format(self.user)

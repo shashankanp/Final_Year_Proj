@@ -129,6 +129,96 @@ class StudentAddForm(UserCreationForm):
         ),
         label="Religion",
     )
+    gender = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Gender",
+    )
+    date_of_birth = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Date_of_birth",
+    )
+    blood_group = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Blood_group",
+    )
+    admission_number = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Admission_number",
+    )
+    admission_date = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Admission_date",
+    )
+    nationality = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Nationality",
+    )
+    father_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Father_name",
+    )
+    father_occupation = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Father_occupation",
+    )
+    father_phone_number = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+            }
+        ),
+        label="Father_phone_number",
+    )
 
     level = forms.CharField(
         widget=forms.Select(
@@ -182,6 +272,15 @@ class StudentAddForm(UserCreationForm):
         user.phone = self.cleaned_data.get('phone')
         user.email = self.cleaned_data.get('email')
         user.religion = self.cleaned_data.get('religion')
+        user.gender = self.cleaned_data.get('gender')
+        user.date_of_birth = self.cleaned_data.get('date_of_birth')
+        user.blood_group = self.cleaned_data.get('blood_group')
+        user.admission_number = self.cleaned_data.get('admission_number')
+        user.nationality = self.cleaned_data.get('nationality')
+        user.father_name = self.cleaned_data.get('father_name')
+        user.father_occupation = self.cleaned_data.get('father_occupation')
+        user.father_phone_number = self.cleaned_data.get('father_phone_number')
+
         user.save()
         student = Student.objects.create(
             student=user,
@@ -222,11 +321,55 @@ class ProfileUpdateForm(UserChangeForm):
         widget=forms.TextInput(
             attrs={'type': 'text', 'class': 'form-control', }),
         label="Religion", )
+    gender = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Gender", )
+    date_of_birth = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Date_of_birth", )
+    blood_group = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Blood_group", )
+    admission_number = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Admission_number", )
+    admission_date = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Admission_date", )
+    nationality = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Nationality", )
+    father_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Father_name", )
+    father_occupation = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Father_occupation", )
+    father_phone_number = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'type': 'text', 'class': 'form-control', }),
+        label="Father_phone_number", )
 
     class Meta:
         model = User
         fields = ['email', 'phone', 'address',
-                  'picture', 'first_name', 'last_name', 'religion']
+                  'picture', 'first_name', 'last_name', 'religion', 'gender',
+                  'date_of_birth',
+                  'blood_group',
+                  'admission_number',
+                  'admission_date',
+                  'nationality',
+                  'father_name',
+                  'father_occupation',
+                  'father_phone_number']
 
 
 class EmailValidationOnForgotPassword(PasswordResetForm):
@@ -343,6 +486,7 @@ class ParentAddForm(UserCreationForm):
         user.phone = self.cleaned_data.get('phone')
         user.email = self.cleaned_data.get('email')
         user.religion = self.cleaned_data.get('religion')
+
         user.save()
         parent = Parent.objects.create(
             user=user,
